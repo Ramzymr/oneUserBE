@@ -1,0 +1,43 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container">
+
+<header>
+    <% include ../partials/header %>
+</header>
+
+<main>
+    <div class="jumbotron">
+        
+        <p>Sign in</p>
+        <form name="form1" method="POST" action="/login">
+            <table>
+                <tr>
+                <td>User Name </td>
+                <td><input type="text" name="username" ></td>
+                </tr>
+                <tr>
+                <tr></tr>
+                <td>Password </td>
+                <td><input type="password" name="password" ></td>
+                </tr>
+                <tr>
+                <td colspan="2"><input class="btn btn-primary" type="submit" value="Submit" ></td>
+                </tr>
+            </table>
+            <p><%= msg %></p>
+            </form>   
+    </div>
+</main>
+
+<footer>
+    <% include ../partials/footer %>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!-- views/pages/logs.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container">
+
+<header>
+    <% include ../partials/header %>
+</header>
+
+<main>
+    <div class="jumbotron">
+        
+        <p>View Access Logs</p>
+        <form name="form1" method="POST" action="/displayLogs">
+            <label for="date1">Enter Date Range:</label>
+            <input type="date" name="date1" >
+            <input type="date" name="date2" ><br>
+            <br>
+            <!-- <label for="userList">Select Users:</label><br>-->
+            <select class="mdb-select colorful-select dropdown-primary" name="userList[]" multiple>
+                    <option  value="" disabled selected>Choose user(s)</option>
+                    <% for (i = 0; i < users.length; i++) { %>
+                      <option value="<%= users[i].email %>"><%= users[i].name %></option>   
+                      
+                    
+                      <% } %>
+            </select>
+            <br>
+            <!--
+            <% for (i = 0; i < users.length; i++) { %>
+                
+                    <input type="checkbox" name="userList[]" value="<%= users[i].email %>"><%= users[i].name %><br>
+                  
+              <% } %>
+           
+              <label for="productList">Select Products:</label><br>
+              <% for (i = 0; i < products.length; i++) { %>
+                
+                <input type="checkbox" name="productList[]" value="<%= products[i].product_id %>"><%= products[i].productname %><br>
+              
+          <% } %>
+           -->
+          
+          <select class="mdb-select colorful-select dropdown-primary" name="productList[]" multiple>
+          <option  value="" disabled selected>Choose product(s)</option>
+          <% for (i = 0; i < products.length; i++) { %>
+            <option name="<%= products[i].productname %>" value="<%= products[i].product_id %>"><%= products[i].productname %></option>   
+            
+          
+            <% } %>
+            </select>
+            <br>
+            <% for (i = 0; i < products.length; i++) { %>
+                <input type="hidden" id="p[]" name="p[<%= products[i].product_id %>]" value="<%= products[i].productname %>">
+            <% } %>
+            <input type="hidden" name="startRecord" value="0">
+            <input type="hidden" name="endRecord" value="10">
+            <button type="reset">Reset</button> 
+            <button type="submit">Submit</button> 
+
+        </form>   
+    </div>
+</main>
+
+<footer>
+    <% include ../partials/footer %>
+</footer>
+
+</body>
+</html>

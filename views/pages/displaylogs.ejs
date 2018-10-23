@@ -1,0 +1,98 @@
+<!-- views/pages/displaylogs.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container">
+
+<header>
+    <% include ../partials/header %>
+      
+</header>
+
+<main>
+    <div class="jumbotron">
+        
+        <p>Access logs - <%= msg %> </p>
+        <form name="form1" method="POST" action="/displayLogs">
+            Current Page <input type="text" id="pageCurrent" name="pageCurrent" value="<%= current %>/<%= pages %>" size="3" readonly>
+            <button type="button" class="btn btn-danger" onclick=location.href='/logs/';>Back to Query</button> 
+            <input type="hidden" id="isFirst" name="isFirst" value="N">
+            <input type="hidden" id="qry" name="qry" value="<%= qry %>">
+            <input type="hidden" id="msg" name="msg" value="<%= msg %>">
+            <input type="hidden" id="pages" name="pages" value="<%= pages %>">
+            <input type="hidden" id="current" name="current" value="<%= current %>">
+            
+            <table class="table">
+                <tr>
+                    <th>Date</th>
+                    <th>User</th>
+                    <th>Application</th>
+                    <th>Apllication User</th>
+                    <th>Function</th>
+                    <th>Session ID</th>
+                    <th>Description</th>
+                  </tr>
+                  <% for (i = 0; i < data.length; i++) { %>
+                    <tr>
+                      <td>  <%= data[i].log_datetime  %> </td>
+                      <td>  <%= data[i].log_email %> </td>
+                      <td>  <%= data[i].productname  %> </td>
+                      <td>  <%= data[i].log_appluser %> </td>
+                      <td>  <%= data[i].log_function %> </td>
+                      <td>  <%= data[i].login_token %> </td>
+                      <td>  <%= data[i].log_message %> </td>
+                    </tr>
+                  <% } %>
+                  
+            </table>
+            <!--
+            <p><%= msg %></p>
+        -->
+            <!-- Page numbers-->
+            Current Page <input type="text" id="pageCurrentF" name="pageCurrentF" value="<%= current %>/<%= pages %>" size="3" readonly>
+            <% if (pages > 0) { %>
+                <% if (current == 1) { %>
+                    <button name="button_id" class="btn btn-primary" value="1" type="submit" disabled>First</button>
+                <% } else { %>
+                    <button name="button_id" class="btn btn-primary" value="1" type="submit">First</button>
+                <% } %>
+                <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                    <% if (i !== 1) { %>
+                        <button name="button_id" class="btn btn-primary" value="<%= i %>" type="submit" disabled>...</button>
+                    <% } %>
+                    <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                        <% if (i == current) { %>
+                            <button name="button_id" class="btn btn-primary" value="<%= i %>" type="submit" disabled><%= i %></button>
+                        <% } else { %>
+                            <button name="button_id" class="btn btn-primary" value="<%= i %>" type="submit"><%= i %></button>
+                        <% } %>
+                        <% if (i == Number(current) + 4 && i < pages) { %>
+                            <button name="button_id" class="btn btn-primary" value="<%= i %>" type="submit" disabled>...</button>
+                        <% } %>
+                    <% } %>
+                <!--
+                <% for (i = 0; i < Number(pages); i++) { %>
+                    <button name="button_id" value="<%= i+1 %>" type="submit"><%= i+1 %></button>
+                 <% } %>
+                -->
+                 <% if (current == pages) { %>
+                    <button name="button_id" class="btn btn-primary" value="<%= pages %>" type="submit" disabled>Last</button>
+                <% } else { %>
+                    <button name="button_id" class="btn btn-primary" value="<%= pages %>" type="submit">Last</button>
+                <% } %>
+            <% } %>    
+            <!-- end of page numbers-->
+            <button class="btn btn-danger" type="button" onclick=location.href='/logs';>Back to Query</button>
+            </form>   
+    </div>
+</main>
+
+<footer>
+    <% include ../partials/footer %>
+</footer>
+
+</body>
+</html>

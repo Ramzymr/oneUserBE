@@ -1,0 +1,39 @@
+<!-- views/partials/header.ejs -->
+<!--
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark navbar-inverse">
+-->
+<nav class="navbar-fixed-top navbar-inverse">
+    <div class="container-fluid">
+    
+            <!--
+            <a class="navbar-brand" href="#">
+                <span class="glyphicon glyphicon glyphicon-user"></span>
+                oneUser Admin Portal:
+            </a>
+        <a  class="navbar-left" href="#"><img src="../logo.png">  </a> 
+        <a class="navbar-brand text-primary" href="#"><span class="glyphicon glyphicon-user" ></span>  oneUser Admin Portal </a>
+        -->
+        <a class="navbar-brand" href="#"> <img id="logo" alt="Logo" src="images/logo.png" ></a>          
+        
+               
+            <ul class="nav navbar-nav">
+                    <% if (user == "") { %>
+                    <% } else {%>
+                        <li><a href="/"><b>Home</b></a></li>
+                        <li><a href="/logs"><b>Access Logs</b></a></li>
+                        <% } %>    
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <% if (user == "") { %>
+                    
+                    <% } else {%>
+                        <li><a href="/logout"><span class="glyphicon glyphicon-user"></span><b> Logout <%= user %></b></a></li>
+                    <% } %>
+            </ul>
+                
+            
+        
+    
+    </div>
+</nav>
