@@ -11,9 +11,13 @@ var routes = require('routes');
 // Maintenace routes
 var oneuser = require('./routes/oneuser');
 var atuser = require('./routes/atuser');
+var web = require('./routes/web');
 
 var app = express();
-var app1=express();
+
+//pubic static
+app.use( express.static( "public" ) );
+
 var http = require("http");
 //SSL
 const https = require('https');
@@ -102,12 +106,17 @@ app.post('/oneuser/delete', oneuser.delete);//route add user record
 
 // POST method route
 
-app.post('/atuser',atuser.list);//route list AT users
-app.post('/atuser/update',atuser.update);//route update AT users
-app.post('/atuser/add',atuser.add);//route add AT users
-app.post('/atuser/delete',atuser.delete);//route add AT users
-
+app.post('/atuser', atuser.list);//route list AT users
+app.post('/atuser/update', atuser.update);//route update AT users
+app.post('/atuser/add', atuser.add);//route add AT users
+app.post('/atuser/delete', atuser.delete);//route add AT users
+app.get('/',web.root);
+app.post('/login',web.login);
+app.get('/logout',web.logout);
+app.get('/logs',web.logs);
+app.post('/displayLogs',web.displayLogs);
 // web interface access
+/*
 app.get('/', function (req, res) {
     console.log("login get: " + req.query.username);
     console.log("login get: session user" + req.session.user);
@@ -134,7 +143,8 @@ app.get('/', function (req, res) {
 
 
 });
-
+*/
+/*
 app.post('/login', function (req, res) {
     console.log("login post:" + req.body.username);
     console.log("login post:" + req.body.password);
@@ -182,6 +192,8 @@ app.post('/login', function (req, res) {
     }
 
 });
+*/
+/*
 app.get('/logout', function (req, res) {
     console.log("logout get: " + req.query.username);
     console.log("logout get: session user" + req.session.user);
@@ -210,7 +222,8 @@ app.get('/logout', function (req, res) {
 
 
 });
-
+*/
+/*
 app.get('/logs', function (req, res) {
     
     console.log("logs: session user" + req.session.user);
@@ -267,6 +280,9 @@ app.get('/logs', function (req, res) {
 
 
 });
+*/
+/*
+app.post('/displayLogs/', function (req, res) {
 
 app.post('/displayLogs', function (req, res) {
     
@@ -318,8 +334,7 @@ app.post('/displayLogs', function (req, res) {
         var sql = "SELECT * FROM logs INNER JOIN products ON logs.log_application=products.product_ID";
         // Get data
         if(date1 != "" && date2 !="") {
-         sql = sql+" WHERE log_datetime BETWEEN '"+date1 +" 00:00:00' AND '"+date2+" 23:00:00'";
-         //sql = sql+" WHERE (log_datetime >='"+date1 +" 00:00:00' AND <='"+date2+" 23:59:59')";
+         sql = sql+" WHERE log_datetime BETWEEN '"+date1 +"' AND '"+date2+"'";
          msg = "Date range: "+date1 +" - " + date2+" :"
         }
         if(userInList !="") {
@@ -368,6 +383,9 @@ app.get('*', function(req, res) {
   });
 
 
+});
+// end of displayLogs
+*/
 var server = http.createServer(app);
 /*
 var x = {
@@ -377,6 +395,11 @@ var x = {
 }
 loghelper.log(x);
 */
+app.get('*', function (req, res) {
+    res.status(404).end();
+});
+
+
 const options = {
     passphrase: 'U&hq5M@cle*Z',
     key: fs.readFileSync('key.pem'),

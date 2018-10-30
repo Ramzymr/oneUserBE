@@ -108,6 +108,7 @@ module.exports.authenticate = function (req, res) {
             */
             //resp.products={productID: 2,productName:'AEM',group:'USER'};
             //console.log("Now: " + now);
+            var now = new Date();
             var sql = "UPDATE users SET logged=?, api_token=?, login_token=?, logged_at=? WHERE email = ?";
             connection.query(sql, ['Y', token, login_token, now, email], function (err, result) {
               if (err) throw err;
