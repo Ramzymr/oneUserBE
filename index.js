@@ -411,16 +411,17 @@ const options = {
     res.end('hello world\n');
   }).listen(8000);
 */
-console.log('Listening https on 443');
+// console.log('Listening https on 443');
 var server1 = https.createServer(options, app);
 //register(server1);
-server1.listen(443);
+//server1.listen(443);
 //https.createServer(options, (req, res) {
 //
 //    res.writeHead(200);
 //    res.end('hello world\n');
 //  }).listen(8443);
 //console.log("Listening http on :");
-
-//server.listen(8012);
+var port = process.env.PORT || 8080
+server.listen(port);
+console.log("Server listning on port %d",port);
 //app.listen(8012, () => console.log("Server started on port 8012"));
